@@ -25,6 +25,7 @@ describe('readNight on runs/2026-10-28.jsonl', () => {
       owner: 'rook',
       runs: 4,
       retries: 3,
+      fails: 0,
       lastStatus: 'ok',
       lastError: 'upstream 503',
       firstAt: '2026-10-29T01:30:00+01:00',
@@ -32,6 +33,7 @@ describe('readNight on runs/2026-10-28.jsonl', () => {
     });
     const backup = n.rows.find((r) => r.job === 'notes/backup')!;
     expect(backup.lastStatus).toBe('fail');
+    expect(backup.fails).toBe(1);
     expect(backup.lastError).toBe('quota exceeded');
   });
 

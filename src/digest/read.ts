@@ -46,6 +46,7 @@ export function digestLines(night: string, lines: string[]): DigestNight {
         owner: l.owner,
         runs: 1,
         retries: l.status === 'retry' ? 1 : 0,
+        fails: l.status === 'fail' ? 1 : 0,
         lastStatus: l.status,
         lastError: l.error ?? null,
         firstAt: l.at,
@@ -55,6 +56,7 @@ export function digestLines(night: string, lines: string[]): DigestNight {
     }
     row.runs++;
     if (l.status === 'retry') row.retries++;
+    if (l.status === 'fail') row.fails++;
     if (l.owner !== null) row.owner = l.owner;
     if (l.error !== undefined) row.lastError = l.error;
     if (Date.parse(l.at) < Date.parse(row.firstAt)) row.firstAt = l.at;
