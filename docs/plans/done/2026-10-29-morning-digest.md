@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-11-04
 ---
 
 # Morning digest
@@ -77,3 +78,23 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Digest contract | — | claude-code · opus-5.5 · high | 2026-11-04 |
+| 2 | Run log reader | #1 | claude-code · opus-5.5 · high | 2026-11-04 |
+| 3 | Digest page | #1 | claude-code · sonnet-5.5 · default | 2026-11-04 |
+| 4 | Digest JSON | #1 | claude-code · sonnet-5.5 · default | 2026-11-04 |
+| 5 | Board links | #1 | claude-code · sonnet-5.5 · default | 2026-11-04 |
+| 6 | Route tests | #1 | claude-code · sonnet-5.5 · default | 2026-11-04 |
+| 7 | Public preview | #2–#6 | claude-code · opus-5.5 · high | 2026-11-04 |
+| 8 | Preview cleanup | #7, review | claude-code · opus-5.5 · high | 2026-11-04 |
+
+#3–#6 ran as four parallel workers, one worktree each, once #1 was in. `fails` was added to
+`DigestRow` before they started, so "any fail marked" holds when a job fails and then recovers.
+#7 was closed before the reviewer had looked and was reopened until the review was in.
+The preview was saved with `scripts/save-preview.ts` (rig could not bind a port in the lane's
+sandbox) and lives at https://rig-digest-preview-rob-bruhns-projects.vercel.app, now without
+the lane marker; the first deployment's own URL is behind Vercel Authentication.
